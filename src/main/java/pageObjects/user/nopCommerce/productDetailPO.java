@@ -3,6 +3,7 @@ package pageObjects.user.nopCommerce;
 import commons.CommonFunctions;
 import org.openqa.selenium.WebDriver;
 import pageUIs.user.nopCommerce.addressPageUI;
+import pageUIs.user.nopCommerce.productDetailPageUI;
 
 public class productDetailPO extends CommonFunctions {
     WebDriver driver;
@@ -11,8 +12,9 @@ public class productDetailPO extends CommonFunctions {
         this.driver = driver;
     }
 
-    public String getValueofAddress(String className){
-        waitElementVisible(driver , addressPageUI.LINE_VALUE , className);
-        return getElementText(driver , addressPageUI.LINE_VALUE , className);
+
+    public String getValueByTitle(String title){
+        waitElementVisible(driver , productDetailPageUI.VALUE_BY_TITLE , title);
+        return getElementText(driver , productDetailPageUI.VALUE_BY_TITLE , title);
     }
 }

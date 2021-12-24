@@ -29,6 +29,7 @@ public class script extends BaseTest {
     String firstName , lastName , email , password , newPass , product;
     String addFN , addLN , addEmail , addCompany , addCountry , addState , city , add1 , add2 , zip , phone , fax;
     String SKU , quantity , price , totalAmount , productName , srcImage , productName1;
+    String CPU , screen , memory, price1 , CPU1 , screen1 , memory1 , hardDrive;
 
     @Parameters({"browser", "url"})
     @BeforeClass
@@ -712,7 +713,7 @@ public class script extends BaseTest {
 
         wishlistPage.clickToIconRemoveProduct(driver , productName);
 
-        verifyEquals(wishlistPage.getMsgNoDataWishlistOrCart(driver , "wishlist").trim() , "The wishlist is empty!");
+        verifyEquals(wishlistPage.getMsgNoDataInPage(driver , "wishlist").trim() , "The wishlist is empty!");
     }
 
     @Test
@@ -722,6 +723,32 @@ public class script extends BaseTest {
         computerPage = pageGeneratorManager.getComputerPage(driver);
 
         computerPage.clickToSubMenu(driver , "Notebooks");
+
+        notebookPage = pageGeneratorManager.getNotebookPage(driver);
+
+        notebookPage.clickToLinkProduct(driver , productName);
+
+        productDetailPage = pageGeneratorManager.getProductDetailPage(driver);
+
+        CPU = productDetailPage.getValueByTitle("CPU Type");
+        memory = productDetailPage.getValueByTitle("Memory");
+        screen = productDetailPage.getValueByTitle("Screensize");
+
+        productDetailPage.backToPage(driver);
+
+        notebookPage = pageGeneratorManager.getNotebookPage(driver);
+
+        notebookPage.clickToLinkProduct(driver , productName1);
+
+        productDetailPage = pageGeneratorManager.getProductDetailPage(driver);
+
+        price1 = productDetailPage.getTextInField(driver , "price-value-5").trim();
+        CPU = productDetailPage.getValueByTitle("CPU Type");
+        memory = productDetailPage.getValueByTitle("Memory");
+        screen = productDetailPage.getValueByTitle("Screensize");
+        hardDrive = productDetailPage.getValueByTitle("Hard drive");
+
+        productDetailPage.backToPage(driver);
 
         notebookPage = pageGeneratorManager.getNotebookPage(driver);
 
@@ -738,6 +765,29 @@ public class script extends BaseTest {
         compareProductPage = pageGeneratorManager.getCompareProductPage(driver);
 
         verifyTrue(compareProductPage.isPageTitleCorrect(driver , "Compare products"));
+
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Name" , "2") , productName1);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Price" , "2") , price1);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Screensize" , "2") , screen1);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "CPU Type" , "2") , CPU1);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Memory" , "2") , memory1);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Hard drive" , "2") , hardDrive);
+
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Name" , "3") , productName);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Price" , "3") , price);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Screensize" , "3") , screen);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "CPU Type" , "3") , CPU);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Memory" , "3") , memory);
+        verifyEquals(compareProductPage.getTextInTableByColumn(driver , "Hard drive" , "3") , "");
+
+        compareProductPage.clickToLink(driver , "Clear list");
+
+        verifyEquals(compareProductPage.getMsgNoDataInPage(driver , "compare-products").trim() , "You have no items to compare.");
+    }
+
+    @Test
+    public void TC_17(){
+
     }
 
 }

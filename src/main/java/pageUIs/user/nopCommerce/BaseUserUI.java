@@ -29,5 +29,8 @@ public class BaseUserUI {
     public static final String CHECKBOX_BY_PRODUCT_NAME = "//a[text() = '%s']/parent::td/preceding-sibling::td[@class = 'add-to-cart']/input";
     public static final String ICON_REMOVE_BY_PRODUCT_NAME = "//a[text() = '%s']/parent::td/following-sibling::td[@class = 'remove-from-cart']//button";
     public static final String MSG_NO_DATA_WISHLIST_CART = "//div[@class = 'page %s-page']//div[@class = 'no-data']";
-    public static final String BUTTON_PRODUCT = "//a[text() = '%s']/parent::h2/following-sibling::div//button[text() = '%s']";
+    public static final String BUTTON_PRODUCT = "//a[textp) = '%s']/parent::h2/following-sibling::div//button[text() = '%s']";
+    public static final String TABLE_BY_ROW = "//table//tr[contains(string() , '%s')]/preceding-sibling::tr";
+    public static final String TABLE_BY_COLUMN = "//table//tbody/tr[%s]/td[%s]";
+
 }

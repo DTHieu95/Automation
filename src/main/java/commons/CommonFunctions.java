@@ -663,8 +663,8 @@ public class CommonFunctions {
     }
 
     public void clickToLinkProduct(WebDriver driver , String productName){
-        waitElementVisible(driver , BaseUserUI.PRODUCT_NAME);
-        clickToElement(driver , BaseUserUI.PRODUCT_NAME);
+        waitElementVisible(driver , BaseUserUI.LINK_PRODUCT);
+        clickToElement(driver , BaseUserUI.LINK_PRODUCT);
     }
 
     public void clickToLinkFooter(WebDriver driver , String linkName){
@@ -812,7 +812,7 @@ public class CommonFunctions {
         clickToElement(driver , BaseUserUI.ICON_REMOVE_BY_PRODUCT_NAME , producName);
     }
 
-    public String getMsgNoDataWishlistOrCart(WebDriver driver , String typePage){
+    public String getMsgNoDataInPage(WebDriver driver , String typePage){
         waitElementVisible(driver , BaseUserUI.MSG_NO_DATA_WISHLIST_CART , typePage);
         return getElementText(driver , BaseUserUI.MSG_NO_DATA_WISHLIST_CART , typePage);
     }
@@ -820,6 +820,12 @@ public class CommonFunctions {
     public void clickToButtonProduct(WebDriver driver , String productName , String buttonName){
         waitElementClickable(driver , BaseUserUI.BUTTON_PRODUCT , productName , buttonName);
         clickToElement(driver , BaseUserUI.BUTTON_PRODUCT , productName , buttonName);
+    }
+
+    public String getTextInTableByColumn(WebDriver driver , String name , String columnIndex){
+        int rowIndex = getElementsize(driver , BaseUserUI.TABLE_BY_ROW , name) + 1;
+        waitElementVisible(driver , BaseUserUI.TABLE_BY_COLUMN , String.valueOf(rowIndex) , columnIndex);
+        return getElementText(driver , BaseUserUI.TABLE_BY_COLUMN , String.valueOf(rowIndex) , columnIndex);
     }
 
 
