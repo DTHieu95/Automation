@@ -24,13 +24,19 @@ public class BaseUserUI {
     public static final String ICON_NEXT_PREVIOUS = "//li[@class = '%s-page']/a";
     public static final String NUMBER_PAGE = "//div[@class = 'pager']//a[text() = '%s']";
     public static final String NUMBER_WISHLIST_CART_HEADER = "//a[@class = 'ico-%s']//span[text() = '(%s)']";
-    public static final String TABLE_COLUMN = "//table//tr//th[contains(string() , '%s')]/preceding-sibling::th";
-    public static final String TABLE_ROW = "//table//tbody/tr[%s]/td[%s]";
+    public static final String TABLE_COLUMN = "//table[@class = '%s']//tr//th[contains(string() , '%s')]/preceding-sibling::th";
+    public static final String TABLE_ROW = "//table[@class = '%s']//tbody/tr[%s]/td[%s]";
     public static final String CHECKBOX_BY_PRODUCT_NAME = "//a[text() = '%s']/parent::td/preceding-sibling::td[@class = 'add-to-cart']/input";
     public static final String ICON_REMOVE_BY_PRODUCT_NAME = "//a[text() = '%s']/parent::td/following-sibling::td[@class = 'remove-from-cart']//button";
     public static final String MSG_NO_DATA_WISHLIST_CART = "//div[@class = 'page %s-page']//div[@class = 'no-data']";
     public static final String BUTTON_PRODUCT = "//a[textp) = '%s']/parent::h2/following-sibling::div//button[text() = '%s']";
-    public static final String TABLE_BY_ROW = "//table//tr[contains(string() , '%s')]/preceding-sibling::tr";
-    public static final String TABLE_BY_COLUMN = "//table//tbody/tr[%s]/td[%s]";
+    public static final String TABLE_BY_ROW = "//table[@class = '%s']//tr[contains(string() , '%s')]/preceding-sibling::tr";
+    public static final String TABLE_BY_COLUMN = "//table[@class = '%s']//tbody/tr[%s]/td[%s]";
+    public static final String SHOPPING_CART_HEADER = "//div[@class = 'header-links']//span[text() = 'Shopping cart']";
+    public static final String VALUE_IN_CART = "//div[@class = 'mini-shopping-cart']//div[@class = '%s']";
+    public static final String VALUE_BILL_SHIPPING_INFO_lIST = "//div[@class = '%s']//ul[@class = '%s']//li[@class = '%s']";
+    public static final String TITLE_BILL_SHIPPING = "//div[@class = '%s-info']/div[@class = 'title']";
+    public static final String GIFT_WRAPPING = "//div[@class='selected-checkout-attributes']";
+
 
 }

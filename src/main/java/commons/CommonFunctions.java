@@ -1,5 +1,7 @@
 package commons;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.jsoup.Connection;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -8,9 +10,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageUIs.user.nopCommerce.BaseUserUI;
+import pageUIs.user.nopCommerce.checkoutPageUI;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -554,6 +559,45 @@ public class CommonFunctions {
         return rand.nextInt(9999);
     }
 
+    protected String getCurrentDay() {
+        DateTime nowUTC = new DateTime(DateTimeZone.UTC);
+        int day = nowUTC.getDayOfMonth();
+        if (day < 10) {
+            String dayValue = "0" + day;
+            return dayValue;
+        }
+        return day + "";
+    }
+
+    protected String getCurrentMonth() {
+        DateTime now = new DateTime(DateTimeZone.UTC);
+        int month = now.getMonthOfYear();
+        if (month < 10) {
+            String monthValue = "0" + month;
+            return monthValue;
+        }
+        return month + "";
+    }
+
+    protected String getCurrentYear() {
+        DateTime now = new DateTime(DateTimeZone.UTC);
+        return now.getYear() + "";
+    }
+
+    public String getDateCalendarWithNoTime(){
+        LocalDateTime myDateObj = LocalDateTime.now();
+        System.out.println("Before Formatting: " + myDateObj);
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
+
+        String formattedDate = myDateObj.format(myFormatObj);
+        return formattedDate;
+
+    }
+
+    protected String getToday() {
+        return getCurrentYear() + "-" + getCurrentMonth() + "-" + getCurrentDay();
+    }
+
     public String getCurrentDate(WebDriver driver){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
@@ -790,16 +834,16 @@ public class CommonFunctions {
         return isElementDisplayed(driver , BaseUserUI.NUMBER_WISHLIST_CART_HEADER , type , number);
     }
 
-    public String getTextInTable(WebDriver driver , String headerName , String rowIndex){
-        int columnIndex = getElementsize(driver , BaseUserUI.TABLE_COLUMN , headerName) + 1;
-        waitElementVisible(driver , BaseUserUI.TABLE_ROW , rowIndex , String.valueOf(columnIndex));
-        return getElementText(driver , BaseUserUI.TABLE_ROW , rowIndex , String.valueOf(columnIndex));
+    public String getTextInTable(WebDriver driver , String className , String headerName , String rowIndex){
+        int columnIndex = getElementsize(driver , BaseUserUI.TABLE_COLUMN , className , headerName) + 1;
+        waitElementVisible(driver , BaseUserUI.TABLE_ROW , className , rowIndex , String.valueOf(columnIndex));
+        return getElementText(driver , BaseUserUI.TABLE_ROW , className ,  rowIndex , String.valueOf(columnIndex));
     }
 
-    public String getValueInTable(WebDriver driver , String headerName , String typeValue , String rowIndex){
-        int columnIndex = getElementsize(driver , BaseUserUI.TABLE_COLUMN , headerName) + 1;
-        waitElementVisible(driver , BaseUserUI.TABLE_ROW , rowIndex , String.valueOf(columnIndex));
-        return getAttributeValue(driver , BaseUserUI.TABLE_ROW , typeValue, rowIndex , String.valueOf(columnIndex));
+    public String getValueInTable(WebDriver driver ,String className , String headerName , String typeValue , String rowIndex){
+        int columnIndex = getElementsize(driver , BaseUserUI.TABLE_COLUMN ,className , headerName) + 1;
+        waitElementVisible(driver , BaseUserUI.TABLE_ROW , className , rowIndex , String.valueOf(columnIndex));
+        return getAttributeValue(driver , BaseUserUI.TABLE_ROW , typeValue, className , rowIndex , String.valueOf(columnIndex));
     }
 
     public void checkToCheckBoxProductName(WebDriver driver , String productName){
@@ -822,10 +866,40 @@ public class CommonFunctions {
         clickToElement(driver , BaseUserUI.BUTTON_PRODUCT , productName , buttonName);
     }
 
-    public String getTextInTableByColumn(WebDriver driver , String name , String columnIndex){
-        int rowIndex = getElementsize(driver , BaseUserUI.TABLE_BY_ROW , name) + 1;
-        waitElementVisible(driver , BaseUserUI.TABLE_BY_COLUMN , String.valueOf(rowIndex) , columnIndex);
-        return getElementText(driver , BaseUserUI.TABLE_BY_COLUMN , String.valueOf(rowIndex) , columnIndex);
+    public String getTextInTableByColumn(WebDriver driver , String className , String name , String columnIndex){
+        int rowIndex = getElementsize(driver , BaseUserUI.TABLE_BY_ROW , className , name) + 1;
+        waitElementVisible(driver , BaseUserUI.TABLE_BY_COLUMN , className , String.valueOf(rowIndex) , columnIndex);
+        return getElementText(driver , BaseUserUI.TABLE_BY_COLUMN , className , String.valueOf(rowIndex) , columnIndex);
+    }
+
+    public void hoverShoppingCartHeader(WebDriver driver){
+        waitElementVisible(driver , BaseUserUI.SHOPPING_CART_HEADER);
+        hoverElement(driver , BaseUserUI.SHOPPING_CART_HEADER);
+    }
+
+    public String getTextInMiniCart(WebDriver driver , String className){
+        waitElementVisible(driver , BaseUserUI.VALUE_IN_CART , className);
+        return getElementText(driver , BaseUserUI.VALUE_IN_CART , className);
+    }
+
+    public void unCheckCheckbox(WebDriver driver , String label){
+        waitElementClickable(driver , BaseUserUI.RADIO_BOX_LABEL , label);
+        unCheckCheckBox(driver , BaseUserUI.RADIO_BOX_LABEL , label);
+    }
+
+    public String getTitleBillOrShipping(WebDriver driver , String type){
+        waitElementVisible(driver , BaseUserUI.TITLE_BILL_SHIPPING , type);
+        return getElementText(driver , BaseUserUI.TITLE_BILL_SHIPPING, type);
+    }
+
+    public String getInfoListBillOrShipping(WebDriver driver ,String type , String content , String className){
+        waitElementVisible(driver , BaseUserUI.VALUE_BILL_SHIPPING_INFO_lIST , type , content ,className);
+        return getElementText(driver , BaseUserUI.VALUE_BILL_SHIPPING_INFO_lIST , type , content , className).trim();
+    }
+
+    public String getTextWrappingInfo(WebDriver driver){
+        waitElementVisible(driver , BaseUserUI.GIFT_WRAPPING);
+        return getElementText(driver , BaseUserUI.GIFT_WRAPPING).trim();
     }
 
 

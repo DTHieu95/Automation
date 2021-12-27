@@ -73,4 +73,19 @@ public class pageGeneratorManager {
     public static compareProductPO getCompareProductPage(WebDriver driver){
         return new compareProductPO(driver);
     }
+
+    public static desktopPO getDesktopPage(WebDriver driver){
+        return new desktopPO(driver);
+    }
+
+    public static checkoutPO getCheckoutPage(WebDriver driver){
+        return new checkoutPO(driver);
+    }
+
+    public static orderPO getOrderPage(WebDriver driver){
+            return new orderPO(driver);}
+
+    public static orderDetailPO getOrderDetailPage(WebDriver driver){
+        return new orderDetailPO(driver);
+    }
 }
