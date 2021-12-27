@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageUIs.admin.nopCommerce.baseAdminUI;
 import pageUIs.user.nopCommerce.BaseUserUI;
 import pageUIs.user.nopCommerce.checkoutPageUI;
 
@@ -829,6 +830,11 @@ public class CommonFunctions {
         clickToElement(driver , BaseUserUI.NUMBER_PAGE , numberPage);
     }
 
+    public String getValueInField(WebDriver driver , String fieldiD , String type){
+        waitElementVisible(driver , BaseUserUI.INPUT_FIELD_ID , fieldiD);
+        return getAttributeValue(driver , BaseUserUI.INPUT_FIELD_ID , type , fieldiD);
+    }
+
     public boolean isNumberWishlistOrCartCorrect(WebDriver driver , String type , String number){
         waitElementVisible(driver , BaseUserUI.NUMBER_WISHLIST_CART_HEADER , type , number);
         return isElementDisplayed(driver , BaseUserUI.NUMBER_WISHLIST_CART_HEADER , type , number);
@@ -900,6 +906,57 @@ public class CommonFunctions {
     public String getTextWrappingInfo(WebDriver driver){
         waitElementVisible(driver , BaseUserUI.GIFT_WRAPPING);
         return getElementText(driver , BaseUserUI.GIFT_WRAPPING).trim();
+    }
+
+    //Admin Nop
+    public String getContentHeaderAdmin(WebDriver driver){
+        waitElementVisible(driver , baseAdminUI.CONTENT_HEADER);
+        return getElementText(driver , baseAdminUI.CONTENT_HEADER).trim();
+    }
+
+    public void hoverMenuAndClickSubMenu(WebDriver driver , String menuName , String subMenuName){
+        waitElementClickable(driver , baseAdminUI.MENU_LINK_BY_NAME , menuName);
+        hoverElement(driver , baseAdminUI.MENU_LINK_BY_NAME , menuName);
+
+        waitElementClickable(driver , baseAdminUI.SUB_MENU_LINK_BY_NAME , subMenuName);
+        clickToElement(driver , baseAdminUI.SUB_MENU_LINK_BY_NAME , subMenuName);
+    }
+
+    public void clickToButtonByIDAndName(WebDriver driver , String tableID , String nameOfRecord , String nameButton){
+        waitElementClickable(driver , baseAdminUI.BUTTON_BY_NAME , tableID , nameOfRecord , nameButton);
+        clickToElement(driver , baseAdminUI.BUTTON_BY_NAME , tableID , nameOfRecord , nameButton);
+    }
+
+    public int getNumberRecordByID(WebDriver driver , String tableID){
+        waitElementVisible(driver , baseAdminUI.NUMBER_RECORD_BY_TABLE_ID , tableID);
+        return getElementsize(driver , baseAdminUI.NUMBER_RECORD_BY_TABLE_ID , tableID);
+    }
+
+    public boolean isMsgNoDataDisplayedByID(WebDriver driver , String tableID){
+        waitElementVisible(driver , baseAdminUI.MSG_NO_DATA_BY_TABLE_ID , tableID);
+        return isElementDisplayed(driver , baseAdminUI.MSG_NO_DATA_BY_TABLE_ID , tableID);
+    }
+
+    public String getTextInTableByID(WebDriver driver , String tableID , String headerName , String rowIndex){
+        int columnIndex = getElementsize(driver , BaseUserUI.TABLE_COLUMN , tableID , headerName) + 1;
+        waitElementVisible(driver , BaseUserUI.TABLE_ROW , tableID , rowIndex , String.valueOf(columnIndex));
+        return getElementText(driver , BaseUserUI.TABLE_ROW , tableID ,  rowIndex , String.valueOf(columnIndex));
+    }
+
+    public String getValueInTableByID(WebDriver driver ,String tableID , String headerName , String typeValue , String rowIndex){
+        int columnIndex = getElementsize(driver , BaseUserUI.TABLE_COLUMN ,tableID , headerName) + 1;
+        waitElementVisible(driver , BaseUserUI.TABLE_ROW , tableID , rowIndex , String.valueOf(columnIndex));
+        return getAttributeValue(driver , BaseUserUI.TABLE_ROW , typeValue, tableID , rowIndex , String.valueOf(columnIndex));
+    }
+
+    public void checkToCheckboxByID(WebDriver driver , String checkboxID){
+        waitElementClickable(driver , baseAdminUI.CHECKBOX_BY_ID , checkboxID);
+        checktoCheckBoxOrRadio(driver , baseAdminUI.CHECKBOX_BY_ID, checkboxID);
+    }
+
+    public void uncheckCheckboxByID(WebDriver driver , String checkboxID){
+        waitElementClickable(driver , baseAdminUI.CHECKBOX_BY_ID , checkboxID);
+        unCheckCheckBox(driver , baseAdminUI.CHECKBOX_BY_ID , checkboxID);
     }
 
 

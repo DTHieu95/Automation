@@ -1,4 +1,4 @@
-package user.NopCommerce;
+package nopCommerce;
 
 import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
@@ -6,11 +6,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.user.nopCommerce.*;
-import sun.util.locale.provider.LocaleServiceProviderPool;
 
-import java.util.Locale;
-
-public class script extends BaseTest {
+public class user extends BaseTest {
     WebDriver driver;
     homePO homePage;
     registerPO registerPage;
