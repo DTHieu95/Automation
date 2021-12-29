@@ -36,5 +36,13 @@ public class pageGenerator {
         return new editProductPO(driver);
     }
 
+    public static addNewAddressPO getAddNewAddressPage(WebDriver driver){
+        return new addNewAddressPO(driver);
+    }
+
+    public static editAddressPO getEditAddressPage(WebDriver driver){
+        return new editAddressPO(driver);
+    }
+
 
 }

@@ -959,5 +959,30 @@ public class CommonFunctions {
         unCheckCheckBox(driver , baseAdminUI.CHECKBOX_BY_ID , checkboxID);
     }
 
+    public void deleteRoleByName(WebDriver driver , String roleName){
+        waitElementClickable(driver , baseAdminUI.DELETE_ROLE_BY_NAME , roleName);
+        clickToElement(driver , baseAdminUI.DELETE_ROLE_BY_NAME , roleName);
+    }
+
+    public void clickToToogleIconByCardName(WebDriver driver , String cardName){
+        String toogleIcon = getAttributeValue(driver , baseAdminUI.TOOGLE_ICON_BY_CARD_NAME , "class",cardName);
+        if (toogleIcon.contains("fa-plus")){
+            waitElementClickable(driver , baseAdminUI.TOOGLE_ICON_BY_CARD_NAME , cardName);
+            clickToElement(driver , baseAdminUI.TOOGLE_ICON_BY_CARD_NAME , cardName);
+        }else{
+            return;
+        }
+    }
+
+    public String getSelectedValueFromDropdown(WebDriver driver , String dropdownName){
+        waitElementVisible(driver, BaseUserUI.DROP_DOWN_NAME , dropdownName);
+        return getSelectedItemFromDropDown(driver , BaseUserUI.DROP_DOWN_NAME , dropdownName);
+    }
+
+    public String getMsgInAlertSuccess(WebDriver driver){
+        waitElementVisible(driver , baseAdminUI.ALERT_SUCCESS_MSG);
+        return getElementText(driver , baseAdminUI.ALERT_SUCCESS_MSG).trim();
+    }
+
 
 }
